@@ -1,0 +1,48 @@
+import React, { useState } from 'react';
+import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+
+const data=[
+{month:'Jul',sales:45},{month:'Aug',sales:52},{month:'Sep',sales:61},
+{month:'Oct',sales:58},{month:'Nov',sales:67},{month:'Dec',sales:73}
+];
+
+export default function App(){
+ const [idea,setIdea]=useState('');
+ const [result,setResult]=useState('');
+ const run=()=>setResult('Best buyers: CXOs, VP Sales, RevOps leaders in mid-large companies for: '+idea);
+
+ return (
+  <div className="container">
+   <h1>CXO Sales Intelligence Dashboard</h1>
+   <p>Deployable starter version</p>
+
+   <div className="grid">
+    <div className="card"><h3>Total Pipeline</h3><h2>$11.5M</h2></div>
+    <div className="card"><h3>Active Deals</h3><h2>58</h2></div>
+    <div className="card"><h3>Conversion</h3><h2>31%</h2></div>
+    <div className="card"><h3>Lead Score</h3><h2>86.5</h2></div>
+   </div>
+
+   <div className="card">
+    <h3>Sales Trend</h3>
+    <ResponsiveContainer width="100%" height={300}>
+      <LineChart data={data}>
+        <CartesianGrid strokeDasharray="3 3"/>
+        <XAxis dataKey="month"/>
+        <YAxis/>
+        <Tooltip/>
+        <Line type="monotone" dataKey="sales" stroke="#2563eb" strokeWidth={3}/>
+      </LineChart>
+    </ResponsiveContainer>
+   </div>
+
+   <div className="card">
+    <h3>AI Prospect Finder</h3>
+    <textarea rows="5" value={idea} onChange={e=>setIdea(e.target.value)} placeholder="Describe your product or service"/>
+    <br/><br/>
+    <button onClick={run}>Find Buyers</button>
+    {result && <p style={{marginTop:'12px'}}>{result}</p>}
+   </div>
+  </div>
+ )
+}
